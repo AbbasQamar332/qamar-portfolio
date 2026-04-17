@@ -21,5 +21,5 @@ No dependencies required - all assets via CDN.
 ![Hero Section](https://via.placeholder.com/1200x600/0a0a0a/00d4ff?text=Hero)
 ![Skills](https://via.placeholder.com/1200x400/f8f9fa/00d4ff?text=Skills)
 
-Enjoy your premium freelancer portfolio!
-
+Enjoy your premium freelancer portfolio!</content>
+<parameter name="filePath">c:\Users\lenovo\Desktop\qamar abbas\README.md
