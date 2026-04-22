@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Qamar Abbas</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Login Container -->
+    <div id="login-container" class="login-container">
+        <div class="login-box">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p id="login-error" class="error-msg"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Container -->
+    <div id="dashboard-container" class="dashboard-container hidden">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin Panel</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-target="dashboard-tab"><i class="fas fa-home"></i> Dashboard</li>
+                <li data-target="projects-tab"><i class="fas fa-briefcase"></i> Projects</li>
+                <li data-target="skills-tab"><i class="fas fa-star"></i> Skills</li>
+                <li data-target="about-tab"><i class="fas fa-user"></i> About</li>
+                <li data-target="messages-tab"><i class="fas fa-envelope"></i> Messages</li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Welcome, Admin</h1>
+                <a href="/" target="_blank" class="btn btn-outline">View Site <i class="fas fa-external-link-alt"></i></a>
+            </header>
+
+            <div class="content-sections">
+                <!-- Dashboard Overview -->
+                <section id="dashboard-tab" class="tab-content active">
+                    <h2>Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Projects</h3>
+                            <p id="stat-projects">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Skills</h3>
+                            <p id="stat-skills">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Messages</h3>
+                            <p id="stat-messages">0</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects Management -->
+                <section id="projects-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Manage Projects</h2>
+                        <button id="addProjectBtn" class="btn btn-primary"><i class="fas fa-plus"></i> Add Project</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Title</th>
+                                    <th>Link</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projectsTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Skills Management -->
+                <section id="skills-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Manage Skills</h2>
+                        <button id="addSkillBtn" class="btn btn-primary"><i class="fas fa-plus"></i> Add Skill</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Icon</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="skillsTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- About Management -->
+                <section id="about-tab" class="tab-content">
+                    <h2>Manage About Section</h2>
+                    <form id="aboutForm" class="edit-form">
+                        <div class="form-group">
+                            <label>Content</label>
+                            <textarea id="aboutContent" rows="10" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </section>
+
+                <!-- Messages -->
+                <section id="messages-tab" class="tab-content">
+                    <h2>Contact Messages</h2>
+                    <div class="messages-grid" id="messagesContainer">
+                        <!-- Populated via JS -->
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="projectModalTitle">Add Project</h2>
+            <form id="projectForm">
+                <input type="hidden" id="projectId">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="projectTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="projectDesc" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Project Link</label>
+                    <input type="url" id="projectLink">
+                </div>
+                <div class="form-group">
+                    <label>Image Upload</label>
+                    <input type="file" id="projectImageFile" accept="image/*">
+                    <input type="hidden" id="projectImageUrl">
+                    <p id="uploadStatus" class="upload-status"></p>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Skill Modal -->
+    <div id="skillModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add Skill</h2>
+            <form id="skillForm">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="skillTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="skillDesc" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Font Awesome Icon Class (e.g., fas fa-star)</label>
+                    <input type="text" id="skillIcon" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Skill</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
